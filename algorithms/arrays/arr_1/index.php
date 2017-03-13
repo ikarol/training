@@ -13,4 +13,14 @@ The matrix and highlighted path with the sum of the numbers should be displayed
 in browser.
  */
 
-
+require_once 'field.php';
+require_once 'path.php';
+require_once 'header.html';
+// $q = crField(5);
+// print_r($q);
+// print_R(findPath($q));
+// echo drawField(findPath($q));
+$field = fPath(crField(5));
+$sum = calcPath($field);
+echo drawField($field);
+require_once 'footer.html';
