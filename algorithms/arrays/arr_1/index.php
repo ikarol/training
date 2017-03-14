@@ -16,11 +16,10 @@ in browser.
 require_once 'field.php';
 require_once 'path.php';
 require_once 'header.html';
-// $q = crField(5);
-// print_r($q);
-// print_R(findPath($q));
-// echo drawField(findPath($q));
-$field = fPath(crField(10));
+
+$field = crField(10);
+$history = markPath($field);
 $sum = calcPath($field);
 echo drawField($field);
+
 require_once 'footer.html';

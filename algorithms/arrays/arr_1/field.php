@@ -11,11 +11,11 @@ function crField($n)
     for ($i = 0; $i < $n; $i++) {
         $cols = array();
         for ($j = 0; $j < $n; $j++) {
-            $cols[] = rand(1,100);
+            $cols[] = rand(1,10);
         }
         $field[$i] = $cols;
     }
-    $field[0][0] = 'Start';
+    $field[0][0] = 'stStart';
     $field[$n - 1][$n - 1] = 'Finish';
     return $field;
 }

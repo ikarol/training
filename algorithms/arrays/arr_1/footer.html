@@ -1,6 +1,14 @@
 <br />
 <input type="submit" name="send" value="Reset">
 <h1>Shortest path sum: <?=$sum?></h1>
+<h3>Steps made:</h3>
+<ul>
+    <?php 
+        foreach ($history as $step) {
+            echo '<li>' . $step . '</li>';
+        }
+    ?>
+</ul>
 </form>
 </body>
 </html>
