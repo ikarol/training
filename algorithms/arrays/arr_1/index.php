@@ -20,7 +20,7 @@ require_once 'header.html';
 // print_r($q);
 // print_R(findPath($q));
 // echo drawField(findPath($q));
-$field = fPath(crField(5));
+$field = fPath(crField(10));
 $sum = calcPath($field);
 echo drawField($field);
 require_once 'footer.html';

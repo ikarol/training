@@ -25,29 +25,118 @@ function fPath($arr)
     $x = 0;
     $y = 0;
     $d = count($arr);
-
-    while ($x != $d - 1) {
-        $y = 0;
-        while ($y != $d - 1) {
+    // while (($x !== $d - 1 && $y !== $d) || ($y !== $d - 1 && $x !== $d)) {
+    while ($x != $d - 1 || $y != $d - 1) {
+        // while ($y != $d - 1) {
             if ($x == 0 && $y == 0){
                 if ($arr[$x + 1][$y] < $arr[$x][$y + 1]){
                     $arr[$x + 1][$y] = 'st' . $arr[$x + 1][$y];
-                    break;
+                    $x++;
+                    // continue;
+                    echo '<p>Start x step</p>';
+                } elseif ($arr[$x + 1][$y] > $arr[$x][$y + 1]) {
+                    $arr[$x][$y + 1] = 'st' . $arr[$x][$y + 1];
+                    $y++;
+                    echo '<p>Start y step</p>';
+                } else {
+                    if (rand(1,2) == 1) {
+                        $arr[$x + 1][$y] = 'st' . $arr[$x + 1][$y];
+                        $x++;
+                        // continue;
+                        echo '<p>Randomized start x step</p>';
+                    } else {
+                        $arr[$x][$y + 1] = 'st' . $arr[$x][$y + 1];
+                        $y++;
+                        echo '<p>Randomized start y step</p>';  
+                    }
                 }
-                $arr[$x][$y + 1] = 'st' . $arr[$x][$y + 1];
             } 
-            // elseif ($x == $d){
-            //         $arr[$x][$y + 1] = 'st' . $arr[$x][$y + 1];
-            //         break;
-            // } elseif ($y == $d) {
+            // elseif ($y == $d - 1 && $x == 0) {
             //     $arr[$x + 1][$y] = 'st' . $arr[$x + 1][$y];
-            //         break;
-            // }
-            // $arr[$x][$y + 1] = 'st' . $arr[$x][$y + 1];
-            $y++;
-        }
-        $x++;
+            //     $x++;
+            //     echo '<p>Y border</p>';
+            //     // continue;
+            // } 
+            elseif ($x == $d - 1) {
+                if ($arr[$x][$y + 1] > $arr[$x - 1][$y]){
+                    if (strpos($arr[$x - 1][$y], 'st') !== false) {
+                        $arr[$x][$y + 1] = 'st' . $arr[$x][$y + 1];
+                        $y++;
+                    } else {
+                        $arr[$x - 1][$y] = 'st' . $arr[$x - 1][$y];
+                        $x--;
+                    }
+                    
+                } elseif ($arr[$x][$y + 1] < $arr[$x - 1][$y]){
+                    if (strpos($arr[$x][$y + 1], 'st') !== false) {
+                        $arr[$x - 1][$y] = 'st' . $arr[$x - 1][$y];
+                        $x--;
+                    } else {
+                        $arr[$x][$y + 1] = 'st' . $arr[$x][$y + 1];
+                        $y++;
+                    }
+                    echo '<p>X border</p>';
+                }
+                // continue;
+            } elseif ($y == $d - 1) {
+                if ($arr[$x][$y - 1] < $arr[$x + 1][$y]) {
+                    if (strpos($arr[$x][$y - 1], 'st') !== false) {
+                        $arr[$x + 1][$y] = 'st' . $arr[$x + 1][$y];
+                        $x++;
+                    } else {
+                        $arr[$x][$y - 1] = 'st' . $arr[$x][$y - 1];
+                        $y--;
+                    }
+                } elseif ($arr[$x][$y - 1] > $arr[$x + 1][$y]){
+                    if (strpos($arr[$x + 1][$y], 'st') !== false) {
+                        $arr[$x][$y - 1] = 'st' . $arr[$x][$y - 1];
+                        $y--;
+                    } else {
+                        $arr[$x + 1][$y] = 'st' . $arr[$x + 1][$y];
+                        $x++;
+                    }
+                    echo '<p>Y border</p>';
+                }
+                // continue;
+            } else {
+                if ($arr[$x + 1][$y] < $arr[$x][$y + 1]){
+                    if (strpos($arr[$x + 1][$y], 'st') !== false){
+                        $arr[$x][$y + 1] = 'st' . $arr[$x][$y + 1];
+                        $y++;
+                    } else {
+                        $arr[$x + 1][$y] = 'st' . $arr[$x + 1][$y];
+                        $x++;
+                    }
+                        // continue;
+                        echo '<p>Simple x step</p>';
+                } elseif ($arr[$x + 1][$y] > $arr[$x][$y + 1]) {
+                    if (strpos($arr[$x][$y + 1], 'st') !== false){
+                        $arr[$x + 1][$y] = 'st' . $arr[$x + 1][$y];
+                        $x++;
+                    } else {
+                        $arr[$x][$y + 1] = 'st' . $arr[$x][$y + 1];
+                        $y++;
+                    }
+                    echo '<p>Simple y step</p>';
+                } else {
+                    if (rand(1,2) == 1) {
+                        $arr[$x + 1][$y] = 'st' . $arr[$x + 1][$y];
+                        $x++;
+                        // continue;
+                        echo '<p>Randomized simple x step</p>';
+                    } else {
+                        $arr[$x][$y + 1] = 'st' . $arr[$x][$y + 1];
+                        $y++;
+                        echo '<p>Randomized simple y step</p>';  
+                    }
+                }
+            }
+            // echo '<p>x: ' . $x . ';y: ' . $y . '</p>';
+        // }
+        echo '<p>x: ' . $x . ';y: ' . $y . '</p>';
+        echo '<p> right </p>';
     }
+    echo '<p>Final x: ' . $x . ';y: ' . $y . '</p>';
     return $arr;
 }
 

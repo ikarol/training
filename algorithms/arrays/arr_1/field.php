@@ -15,6 +15,8 @@ function crField($n)
         }
         $field[$i] = $cols;
     }
+    $field[0][0] = 'Start';
+    $field[$n - 1][$n - 1] = 'Finish';
     return $field;
 }
 /**
