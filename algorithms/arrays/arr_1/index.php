@@ -17,9 +17,9 @@ require_once 'field.php';
 require_once 'path.php';
 require_once 'header.html';
 
-$field = crField(10);
-$history = markPath($field);
-$sum = calcPath($field);
-echo drawField($field);
+$fields = crField(10);
+$history = markPath($fields);
+$sum = calcPath($fields);
+echo drawField($fields);
 
 require_once 'footer.html';

@@ -35,15 +35,15 @@ function fibonacci_arr()
  */
 function fibonacci_loop()
 {
-    $x = 0;    
-    $y = 1; 
-    $z = 0;
+    $fib1 = 0;    
+    $fib2 = 1; 
+    $result = 0;
     while(strlen($z) != 100) { 
-        $z = bcadd($x, $y);
-        $x = $y;
-        $y = $z;
+        $result = bcadd($fib1, $fib2);
+        $fib1 = $fib2;
+        $fib2 = $result;
     }
-    return $z;
+    return $result;
 }
 
 /**
@@ -55,18 +55,18 @@ function fibonacci_loop()
 // Works slowly with big numbers
 function fibonacci_gr()
 {
-    $x = 1;    
-    $y = 1; 
-    $z = 0;
+    $fib1 = 1;    
+    $fib2 = 1; 
+    $result = 0;
     $i = 2;
     define('gr', 1.618034);
     while(strlen($z) != 100) { 
         $z = (int)(bcsub(pow(gr, $i),pow(bcsub(1, gr,6), $i),6) / sqrt(5));
-        $x = $y;
-        $y = $z;
+        $fib1 = $fib2;
+        $fib2 = $result;
         $i++;
     }
-    return $z;
+    return $result;
 }
 
 echo "--------------Array solution------------------\n";
