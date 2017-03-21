@@ -34,7 +34,7 @@ function drawField($arr)
                     $table .= '<td style="background: green">' . substr($val, 2) . '</td>';
                     continue;
                 }
-                $table .= '<td>' . $val . '</td>';  
+                $table .= '<td>' . $val . '</td>';
             } else {
                 if (strpos($val, 'st') !== false) {
                     $table .= '<tr><td style="background: green">' . substr($val, 2) . '</td>';

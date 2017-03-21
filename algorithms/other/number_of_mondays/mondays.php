@@ -14,17 +14,69 @@
  *  only can be called leap when exactly divided by 400.
  */
 
-function countMondays()
+/**
+ * Function that counts the number of mondays which are on the first day of the month
+ * Using strtotime function to create time stamps and for arithmetics also.
+ * @return Array array of mondays
+ */
+// !!!!!!!!!!!!!!Doesn't work on Windows(any timestamp starts from 01.01.1970)
+function mondStrToTime()
 {
-    $year = 1900;
+    date_default_timezone_set('UTC');
     $mondays = array();
-    $days = 365;
-    while ($year != 1999) {
-        if ($year % 4 == 0) {
-            $days = 366;
-        } else {
-            $days = 365;
+    for (
+        $currTimeSt = strtotime('01.01.1900');
+        date('d.m.Y', $currTimeSt) != '01.01.2000';
+        $currTimeSt = strtotime('+ 1 month', $currTimeSt)
+    ) {
+        if (date('D', $currTimeSt) == 'Mon') {
+            $mondays[] = date('d.m.Y', $currTimeSt);
         }
-
     }
+    return $mondays;
 }
+
+/**
+ * Function that counts the number of mondays which are on the first day of the month.
+ * Using in-built PHP classes: DateTime, DateTimeZone, DateTimeInterval
+ * @return Array array of mondays
+ */
+function mondDateTime()
+{
+    $mondays = array();
+    for (
+        $timeSt = new DateTime('01.01.1900', new DateTimeZone('UTC'));
+        $timeSt->format('d.m.Y') != '01.01.2000';
+        $timeSt->add(new DateInterval('P1M'))
+    ) {
+        if ($timeSt->format('D') == 'Mon') {
+            $mondays[] = $timeSt->format('d.m.Y');
+        }
+    }
+    return $mondays;
+}
+
+// Finding the optimal solution
+// --------------Testing mondStrToTime function --------------
+$stStart = microtime(true);
+echo "Testing mondStrToTime function\n";
+$strToTimeMondays = mondStrToTime();
+echo count($strToTimeMondays) . "\n";
+foreach ($strToTimeMondays as $mon) {
+    echo "$mon\n";
+}
+$stFinish = microtime(true) - $stStart;
+
+// --------------Testing mondDateTime function --------------
+$dtStart = microtime(true);
+echo "Testing mondDateTime function\n";
+$dateTimeMondays = mondDateTime();
+echo count($dateTimeMondays) . "\n";
+foreach ($dateTimeMondays as $mon) {
+    echo "$mon\n";
+}
+$dtFinish = microtime(true) - $dtStart;
+
+// Comparison
+echo 'mondStrToTime time: ' . $stFinish . "\n";
+echo 'mondDateTime time: ' . $dtFinish . "\n";
