@@ -38,7 +38,7 @@ function mondStrToTime()
 
 /**
  * Function that counts the number of mondays which are on the first day of the month.
- * Using in-built PHP classes: DateTime, DateTimeZone, DateTimeInterval
+ * Using built-in PHP classes: DateTime, DateTimeZone, DateTimeInterval
  * @return Array array of mondays
  */
 function mondDateTime()
@@ -56,27 +56,82 @@ function mondDateTime()
     return $mondays;
 }
 
+/**
+ * Function that counts the number of mondays which are on the first day of the month.
+ * Using JDC and Gregorian calendar
+ * @return Array array of mondays
+ */
+function mondGr()
+{
+    $mondays = array();
+    for (
+        $timeSt = GregorianToJD(1, 1, 1900);
+        JDToGregorian($timeSt) != '1/1/2000';
+    ) {
+        if (JDDayOfWeek($timeSt, 0) === 1) {
+            $mondays[] = JDToGregorian($timeSt);
+        }
+        switch (explode('/', JDToGregorian($timeSt))[0]) {
+            case '2':
+                $year = explode('/', JDToGregorian($timeSt))[2];
+                if (substr($year, 2) == '00') {
+                    if ($year % 400 === 0) {
+                        $timeSt += 29;
+                        break;
+                    }
+                    $timeSt += 28;
+                    break;
+                } elseif ($year % 4 === 0) {
+                    $timeSt += 29;
+                    break;
+                }
+                $timeSt += 28;
+                break;
+            case '1':
+            case '3':
+            case '5':
+            case '7':
+            case '8':
+            case '10':
+            case '12':
+                $timeSt += 31;
+                break;
+            case '4':
+            case '6':
+            case '9':
+            case '11':
+                $timeSt += 30;
+                break;
+        }
+    }
+    return $mondays;
+}
+
 // Finding the optimal solution
 // --------------Testing mondStrToTime function --------------
 $stStart = microtime(true);
-echo "Testing mondStrToTime function\n";
+echo 'Testing mondStrToTime function', PHP_EOL;
 $strToTimeMondays = mondStrToTime();
-echo count($strToTimeMondays) . "\n";
-foreach ($strToTimeMondays as $mon) {
-    echo "$mon\n";
-}
+echo count($strToTimeMondays), PHP_EOL;
+echo implode(PHP_EOL, $strToTimeMondays), PHP_EOL;
 $stFinish = microtime(true) - $stStart;
 
 // --------------Testing mondDateTime function --------------
 $dtStart = microtime(true);
-echo "Testing mondDateTime function\n";
+echo 'Testing mondDateTime function', PHP_EOL;
 $dateTimeMondays = mondDateTime();
-echo count($dateTimeMondays) . "\n";
-foreach ($dateTimeMondays as $mon) {
-    echo "$mon\n";
-}
+echo count($dateTimeMondays), PHP_EOL;
+echo implode(PHP_EOL, $dateTimeMondays), PHP_EOL;
 $dtFinish = microtime(true) - $dtStart;
 
+// --------------Testing mondGr function --------------
+$grStart = microtime(true);
+echo 'Testing mondGr function', PHP_EOL;
+$grMondays = mondGr();
+echo count($grMondays), PHP_EOL;
+echo implode(PHP_EOL, $grMondays), PHP_EOL;
+$grFinish = microtime(true) - $grStart;
 // Comparison
-echo 'mondStrToTime time: ' . $stFinish . "\n";
-echo 'mondDateTime time: ' . $dtFinish . "\n";
+echo 'mondStrToTime time: ' . $stFinish, PHP_EOL;
+echo 'mondDateTime time: ' . $dtFinish, PHP_EOL;
+echo 'mondGr time: ' . $grFinish, PHP_EOL;
