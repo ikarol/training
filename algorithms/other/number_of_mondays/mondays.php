@@ -107,6 +107,31 @@ function mondGr()
     return $mondays;
 }
 
+
+/**
+ * Function that counts the number of mondays which are on the first day of the month.
+ * Using JDC and Gregorian calendar
+ * @return Array array of mondays
+ * simpler version of upper function
+ */
+function mondGr2()
+{
+    $mondays = array();
+    for (
+        $year = 1900;
+        $year != 2000;
+        $year++
+    ) {
+        for ($month = 1; $month <= 12; $month++) {
+            $timeSt = GregorianToJD($month, 1, $year);
+            if (JDDayOfWeek($timeSt, 0) === 1) {
+                $mondays[] = JDToGregorian($timeSt);
+            }
+        }
+    }
+    return $mondays;
+}
+
 // Finding the optimal solution
 // --------------Testing mondStrToTime function --------------
 $stStart = microtime(true);
@@ -131,7 +156,16 @@ $grMondays = mondGr();
 echo count($grMondays), PHP_EOL;
 echo implode(PHP_EOL, $grMondays), PHP_EOL;
 $grFinish = microtime(true) - $grStart;
+
+// --------------Testing mondGr2 function --------------
+$gr2Start = microtime(true);
+echo 'Testing mondGr2 function', PHP_EOL;
+$gr2Mondays = mondGr2();
+echo count($gr2Mondays), PHP_EOL;
+echo implode(PHP_EOL, $gr2Mondays), PHP_EOL;
+$gr2Finish = microtime(true) - $gr2Start;
 // Comparison
 echo 'mondStrToTime time: ' . $stFinish, PHP_EOL;
 echo 'mondDateTime time: ' . $dtFinish, PHP_EOL;
 echo 'mondGr time: ' . $grFinish, PHP_EOL;
+echo 'mondGr2 time: ' . $gr2Finish, PHP_EOL;
