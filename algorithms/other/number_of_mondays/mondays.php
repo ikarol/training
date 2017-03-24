@@ -125,11 +125,20 @@ function mondGr2()
         for ($month = 1; $month <= 12; $month++) {
             $timeSt = GregorianToJD($month, 1, $year);
             if (JDDayOfWeek($timeSt, 0) === 1) {
-                $mondays[] = JDToGregorian($timeSt);
+                $mondays[] = addZero(JDToGregorian($timeSt));
             }
         }
     }
     return $mondays;
+}
+function addZero($gregStr)
+{
+    $dateParams = explode('/', $gregStr);
+    list($month, $day, $year) = $dateParams;
+    if (strlen($month) != 2) {
+        $month = '0' . $month;
+    }
+    return "$month.0{$day}.$year";
 }
 
 // Finding the optimal solution

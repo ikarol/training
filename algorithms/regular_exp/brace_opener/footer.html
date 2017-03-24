@@ -3,7 +3,7 @@
 
     if (isset($_REQUEST['Open'])) {
         $text = htmlspecialchars($_REQUEST['text']);
-        $result = preg_split('', $text);
+        $result = preg_split('/[a-z]+/i', $text);
         echo '<p>Given text: ' . $text . '</p>';
         echo '<h3>Result:</h3>';
         echo implode('<br />', $result);

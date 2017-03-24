@@ -7,6 +7,5 @@
  * Braces areas can cross each other.
  */
 
-require_once 'opener.php';
 require_once 'header.html';
 require_once 'footer.html';
