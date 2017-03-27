@@ -3,10 +3,27 @@
 
     if (isset($_REQUEST['Open'])) {
         $text = htmlspecialchars($_REQUEST['text']);
-        $result = preg_split('/[a-z]+/i', $text);
+        preg_match_all('/
+            (               #1st capturing group
+                \[          #literal [
+                    .*      #any symbols
+                \]          #literal ]
+            ) |             #end of 1st group and OR operator
+            (               #2 capturing group
+                \(          #literal (
+                    .*      #any symbols
+                \)          #literal )
+            ) |             #end of 2 group and OR operator
+            (               #3 capturing group
+                \{          #literal {
+                    .*      #any symbols
+                \}          #literal }
+            )               #end of 3 group
+            /ixs',$text, $result);
         echo '<p>Given text: ' . $text . '</p>';
         echo '<h3>Result:</h3>';
-        echo implode('<br />', $result);
+        echo implode('<p />', $result);
+        print_r($result);
     }
 
     ?>
