@@ -2,14 +2,9 @@
     <?php
 
     if (isset($_REQUEST['Open'])) {
-        $text = htmlspecialchars($_REQUEST['text']);
-        preg_match_all('/
-            (?:\\((\\w*)\\))|(?:\\[(?1)\\])|(?:\\{(?1)\\})
-            /ixs', $text, $result, PREG_SET_ORDER);
         echo '<p>Given text: ' . $text . '</p>';
         echo '<h3>Result:</h3>';
-        echo implode('<p />', $result);
-        print_r($result);
+        echo implode('<p />', $items);
     }
 
     ?>

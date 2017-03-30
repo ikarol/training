@@ -8,4 +8,17 @@
  */
 
 require_once 'header.html';
+
+$result = array();
+$items = array();
+$text = htmlspecialchars($_REQUEST['text']);
+// while (preg_match('/(?:\\((\\w*?)\\))|(?:\\[(?1)\\])|(?:\\{(?1)\\})/ixs', $text, $result)) {
+//     $text =
+// }
+preg_match('/(?:\\((.*?)\\))|(?:\\[(?1)\\])|(?:\\{(?1)\\})/ixs', $text, $result);
+print_r($result);
+// foreach ($result as $array) {
+//     $items[] = $array[0];
+// }
+
 require_once 'footer.html';
