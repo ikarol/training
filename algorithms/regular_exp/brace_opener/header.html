@@ -5,10 +5,5 @@
 </head>
 <body>
     <form action="<?=$_SERVER['REQUEST_URI']?>" method="POST" accept-charset="utf-8">
-    <?php
-    if (!isset($_REQUEST['Open'])) {
-        echo '<h3>Enter the text</h3>';
-    }
-    ?>
-    <input type="text" name="text" required><br />
+    <input type="text" name="text" required placeholder="Enter the text"><br />
     <input type="submit" name="Open" value="Submit">

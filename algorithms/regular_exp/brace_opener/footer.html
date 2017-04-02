@@ -4,7 +4,10 @@
     if (isset($_REQUEST['Open'])) {
         echo '<p>Given text: ' . $text . '</p>';
         echo '<h3>Result:</h3>';
-        echo implode('<p />', $items);
+        if (count($items) == 0) {
+            die('No braces');
+        }
+        echo '<p>', implode('<p />', $items), '</p>';
     }
 
     ?>

@@ -9,16 +9,26 @@
 
 require_once 'header.html';
 
-$result = array();
-$items = array();
-$text = htmlspecialchars($_REQUEST['text']);
-// while (preg_match('/(?:\\((\\w*?)\\))|(?:\\[(?1)\\])|(?:\\{(?1)\\})/ixs', $text, $result)) {
-//     $text =
-// }
-preg_match('/(?:\\((.*?)\\))|(?:\\[(?1)\\])|(?:\\{(?1)\\})/ixs', $text, $result);
-print_r($result);
-// foreach ($result as $array) {
-//     $items[] = $array[0];
-// }
+if (isset($_REQUEST['Open'])) {
+    $matches = array();
+    $items = array();
+    $text = htmlspecialchars($_REQUEST['text']);
+    if (preg_match_all('/\\(([^(]*?)\\)/isx', $text, $matches, PREG_PATTERN_ORDER)) {
+        foreach ($matches[0] as $full_match) {
+            $items[] = $full_match;
+        }
+    }
+    if (preg_match_all('/\\[([^[]*?)\\]/isx', $text, $matches, PREG_PATTERN_ORDER)) {
+        foreach ($matches[0] as $full_match) {
+            $items[] = $full_match;
+        }
+    }
+    if (preg_match_all('/\\{([^{]*?)\\}/isx', $text, $matches, PREG_PATTERN_ORDER)) {
+        foreach ($matches[0] as $full_match) {
+            $items[] = $full_match;
+        }
+    }
+}
+
 
 require_once 'footer.html';
