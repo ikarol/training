@@ -10,24 +10,24 @@
 require_once 'header.html';
 
 if (isset($_REQUEST['Open'])) {
-    $matches = array();
     $items = array();
     $text = htmlspecialchars($_REQUEST['text']);
-    if (preg_match_all('/\\(([^(]*?)\\)/isx', $text, $matches, PREG_PATTERN_ORDER)) {
+    if (preg_match_all('/\\(([^(]*?)\\)/isx', $text, $matches, PREG_OFFSET_CAPTURE)) {
         foreach ($matches[0] as $full_match) {
-            $items[] = $full_match;
+            $items[$full_match[1]] = $full_match[0];
         }
     }
-    if (preg_match_all('/\\[([^[]*?)\\]/isx', $text, $matches, PREG_PATTERN_ORDER)) {
+    if (preg_match_all('/\\[([^[]*?)\\]/isx', $text, $matches, PREG_OFFSET_CAPTURE)) {
         foreach ($matches[0] as $full_match) {
-            $items[] = $full_match;
+            $items[$full_match[1]] = $full_match[0];
         }
     }
-    if (preg_match_all('/\\{([^{]*?)\\}/isx', $text, $matches, PREG_PATTERN_ORDER)) {
+    if (preg_match_all('/\\{([^{]*?)\\}/isx', $text, $matches, PREG_OFFSET_CAPTURE)) {
         foreach ($matches[0] as $full_match) {
-            $items[] = $full_match;
+            $items[$full_match[1]] = $full_match[0];
         }
     }
+    ksort($items);
 }
 
 
